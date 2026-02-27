@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from pydantic import BaseModel, Field
 
@@ -35,7 +35,7 @@ class EvaluationResult(BaseModel):
     model_name: str
     score: float = Field(ge=0.0, le=1.0)
     metrics: dict[str, float] = Field(default_factory=dict)
-    evaluated_at: datetime = Field(default_factory=datetime.utcnow)
+    evaluated_at: datetime = Field(default_factory=lambda: datetime.now(tz=timezone.utc))
 
 
 class MarketplaceListing(BaseModel):

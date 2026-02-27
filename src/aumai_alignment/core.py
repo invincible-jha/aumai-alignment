@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Callable
 
 from aumai_alignment.models import (
@@ -176,7 +176,7 @@ class EvaluationRunner:
             model_name=model_name,
             score=round(aggregate_score, 4),
             metrics=metrics,
-            evaluated_at=datetime.utcnow(),
+            evaluated_at=datetime.now(tz=timezone.utc),
         )
 
         self._results.setdefault(dataset_id, []).append(result)
